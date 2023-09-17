@@ -1,26 +1,28 @@
 import { FaShoppingCart } from "react-icons/fa";
 const HomePageContainer = () => {
   return (
-    <div className="bg-gradient-to-r from-[#44d47e] to-[#44d47e] w-full h-1/2">
+    <div className="bg-gradient-to-r from-[#8cf1b5] to-[#8cf1b5] w-full h-1/2 rounded-b-[5rem] shadow-2xl shadow-slate-300">
       <nav className="flex justify-between items-end p-11 mb-6">
-        <div className=" text-7xl  font-bold font-sans">Food Villa</div>
+        <div className=" text-7xl  font-bold font-sans uppercase">
+          Food Villa
+        </div>
         <ul className=" flex gap-x-4  md:pr-[160px]">
-          <li className="text-[#224F34] font-sans font-medium uppercase break-words ">
+          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
             Home
           </li>
-          <li className="text-[#224F34] font-sans font-medium uppercase break-words ">
+          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
             Shop
           </li>
-          <li className="text-[#224F34] font-sans font-medium uppercase break-words ">
+          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
             Contact
           </li>
-          <li className="text-[#224F34] font-sans font-medium uppercase break-words ">
+          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
             About
           </li>
         </ul>
         <div>
           <div className="text">
-            <FaShoppingCart />
+            <FaShoppingCart className="text-3xl" />
           </div>
         </div>
       </nav>
