@@ -7,16 +7,16 @@ const HomePageContainer = () => {
           Food Villa
         </div>
         <ul className=" flex gap-x-4  md:pr-[160px]">
-          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
+          <li className="text-[var(--text-color-main)] font-sans font-bold uppercase break-words ">
             Home
           </li>
-          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
+          <li className="text-[var(--text-color-main)] font-sans font-bold uppercase break-words ">
             Shop
           </li>
-          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
+          <li className="text-[var(--text-color-main)]  font-sans font-bold uppercase break-words ">
             Contact
           </li>
-          <li className="text-[#224F34] font-sans font-bold uppercase break-words ">
+          <li className="text-[var(--text-color-main)]  font-sans font-bold uppercase break-words ">
             About
           </li>
         </ul>
@@ -29,10 +29,10 @@ const HomePageContainer = () => {
       <div className="px-14 flex gap-x-5 mt-20">
         {/* LeftSection */}
         <div className="flex flex-col gap-y-20">
-          <div className="w-full font-sans  text-[#224F34] font-bold break-words text-5xl">
+          <div className="w-full font-sans  text-[var(--text-color-main)] font-bold break-words text-5xl">
             Disover Our Delecacy
           </div>
-          <div className="w-full text-[#267D49] text-2xl font-sans font-medium leading-7 break-words">
+          <div className="w-full text-[var(--text-color-main)]  text-2xl font-sans font-medium leading-7 break-words">
             Explore our curated collection of stylish clothing and accessories
             tailored to your unique taste.
           </div>

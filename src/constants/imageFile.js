@@ -6,3 +6,9 @@ export const carouselImagePrduct3 =
   "https://tuileriespatisserie.in/cdn/shop/files/Untiasatled-1.jpg?v=1659091752";
 export const carouselBackgroundImage =
   "https://tuileriespatisserie.in/cdn/shop/files/Banner-Weasbsite-20.jpg?v=1657226032";
+
+export const cardImage1 =
+  "https://tuileriespatisserie.in/cdn/shop/files/BerryCharlotte.jpg?v=1691324580";
+
+export const cardImage2 =
+  "https://tuileriespatisserie.in/cdn/shop/files/MANGORASPBERRY500G.jpg?v=1691326664";
