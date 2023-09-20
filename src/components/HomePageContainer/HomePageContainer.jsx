@@ -36,7 +36,7 @@ const HomePageContainer = () => {
             Explore our curated collection of stylish clothing and accessories
             tailored to your unique taste.
           </div>
-          <button className="rounded bg-[#224F34] shadow-lg p-5 w-1/3 text-white font-medium font-sans uppercase break-words text-lg">
+          <button className="rounded bg-[#224F34] shadow-lg p-5 w-1/3 text-white font-medium font-sans uppercase break-words text-lg hover:bg-green-600">
             Shop Now
           </button>
         </div>

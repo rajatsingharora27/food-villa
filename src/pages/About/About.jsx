@@ -1,5 +1,7 @@
+// import ShopPage from "../CommonShopPage/ShopPage";
+
 const About = () => {
-  return <div>About</div>;
+  return <div>{/* <ShopPage /> */}</div>;
 };
 
 export default About;
