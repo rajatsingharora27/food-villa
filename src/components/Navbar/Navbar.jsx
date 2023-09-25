@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white w-full top-0 z-20">
+    <nav className="bg-white w-full top-0 z-20 mt-7">
       <div className="items-center px-4 max-w-screen-xl mx-auto md:px-8 lg:flex">
         <div className="flex items-center justify-between py-3 lg:py-4 lg:block">
           <div
@@ -39,19 +39,21 @@ const Navbar = () => {
         >
           <div>
             <ul className="flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row">
-              <li className="mt-4 lg:mt-0">
-                <div className="text">
-                  <FaShoppingCart className="text-2xl" />
-                </div>
-              </li>
-              <li className="mt-8 lg:mt-0">
-                <button className="py-3 px-4 text-center text-white bg-green-600 hover:bg-green-700 rounded-md shadow block lg:inline">
-                  Sign Up
-                </button>
-              </li>
+              <div className="flex gap-x-7 justify-center items-center">
+                <li className="mt-4 lg:mt-0">
+                  <div className="text">
+                    <FaShoppingCart className="text-2xl" />
+                  </div>
+                </li>
+                <li className="mt-8 lg:mt-0">
+                  <button className="py-3 px-4 text-center text-white bg-green-600 hover:bg-green-700 rounded-md shadow block lg:inline">
+                    Sign Up
+                  </button>
+                </li>
+              </div>
             </ul>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 justify-center items-center mt-3">
             <ul className="justify-center items-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0">
               {navigation.map((item, idx) => {
                 return (

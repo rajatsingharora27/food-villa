@@ -5,12 +5,14 @@ import ShopPage from "./pages/CommonShopPage/ShopPage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import ErrorPage from "./pages/Error/ErrorPage";
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
     { path: "/", element: <HomePage /> },
     { path: "/about", element: <About /> },
     { path: "/shop/:type", element: <ShopPage /> },
+    { path: "/product/:id", element: <ProductPage /> },
     { path: "*", element: <ErrorPage /> },
   ]);
 
