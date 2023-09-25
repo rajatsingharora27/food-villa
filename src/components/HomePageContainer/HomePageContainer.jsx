@@ -21,8 +21,15 @@ const HomePageContainer = () => {
           </li>
         </ul>
         <div>
-          <div className="text">
-            <FaShoppingCart className="text-3xl" />
+          <div className="text"></div>
+
+          <div>
+            <div className="relative  text-white p-2 rounded text-lg font-bold overflow-visible">
+              <FaShoppingCart className="text-3xl" />
+              <div className="absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full">
+                1
+              </div>
+            </div>
           </div>
         </div>
       </nav>
