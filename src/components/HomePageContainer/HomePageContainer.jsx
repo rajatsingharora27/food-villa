@@ -1,5 +1,8 @@
 import { FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 const HomePageContainer = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-gradient-to-r from-[#8cf1b5] to-[#8cf1b5] w-full h-1/2 rounded-b-[5rem] shadow-2xl shadow-slate-300">
       <nav className="flex justify-between items-end p-11 mb-6">
@@ -7,16 +10,22 @@ const HomePageContainer = () => {
           Food Villa
         </div>
         <ul className=" flex gap-x-4  md:pr-[160px]">
-          <li className="text-[var(--text-color-main)] font-sans font-bold uppercase break-words ">
+          <li
+            className="text-[var(--text-color-main)] font-sans font-bold uppercase break-words cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             Home
           </li>
-          <li className="text-[var(--text-color-main)] font-sans font-bold uppercase break-words ">
+          <li
+            className="text-[var(--text-color-main)] font-sans font-bold uppercase break-words cursor-pointer "
+            onClick={() => navigate("/shop/all")}
+          >
             Shop
           </li>
-          <li className="text-[var(--text-color-main)]  font-sans font-bold uppercase break-words ">
+          <li className="text-[var(--text-color-main)]  font-sans font-bold uppercase break-words cursor-pointer ">
             Contact
           </li>
-          <li className="text-[var(--text-color-main)]  font-sans font-bold uppercase break-words ">
+          <li className="text-[var(--text-color-main)]  font-sans font-bold uppercase break-words cursor-pointer">
             About
           </li>
         </ul>
@@ -24,8 +33,13 @@ const HomePageContainer = () => {
           <div className="text"></div>
 
           <div>
-            <div className="relative  text-white p-2 rounded text-lg font-bold overflow-visible">
-              <FaShoppingCart className="text-3xl" />
+            <div className="relative  text-white p-2 rounded text-lg font-bold overflow-visible cursor-pointer">
+              <FaShoppingCart
+                className="text-3xl"
+                onClick={() => {
+                  navigate("/shopping-cart");
+                }}
+              />
               <div className="absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full">
                 1
               </div>
