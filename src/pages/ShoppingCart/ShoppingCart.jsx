@@ -19,7 +19,7 @@ const ShoppingCart = () => {
             <SectedItemCart />
             <SectedItemCart />
             <SectedItemCart />
-            <SectedItemCart /> <SectedItemCart />
+            <SectedItemCart /> 
             <SectedItemCart />
             <SectedItemCart />
           </div>
