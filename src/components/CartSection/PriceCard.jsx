@@ -6,19 +6,11 @@ import { useNavigate } from "react-router-dom";
 const PriceCard = () => {
   const [Razorpay] = useRazorpay();
   const navigate = useNavigate();
-  const [paymentSuccess, isPaymentSuccess] = useState(false);
-  const [paymentId, setPaymentId] = useState();
 
-  // useEffect(() => {
-  //   const paymentStatusCheck = async () => {
-  //     let data = {
-  //       paymentSuccess,
-  //       paymentId,
-  //     };
-  //     await axios.post("http://localhost:8080/food-villa/api/v1/payment-status", data);
-  //   };
-  //   paymentStatusCheck();
-  // }, [paymentSuccess]);
+  const handlePaymentStatus = (status) => {
+    const result = axios.post("http://localhost:8080/food-villa/api/v1/payment-fail", { payemtSuccess: true });
+    console.log(result);
+  };
 
   const paymentAndUpdate = async () => {
     const data = {
@@ -39,13 +31,13 @@ const PriceCard = () => {
           productName: "Eggless Crunchy Nougat",
           productId: "884ccdcf-8e58-4518-b85c-af4b4ccd0ec9",
           productPrice: "2400",
-          quantity: "1",
+          quantity: 1,
         },
         {
           productName: "Cheese cake",
           productId: "1197ae2c-bb83-4c43-b332-0b6afb195feb",
           productPrice: "2400",
-          quantity: "1",
+          quantity: 1,
         },
       ],
     };
@@ -70,15 +62,47 @@ const PriceCard = () => {
       handler: async (res) => {
         alert(res);
         console.log(res);
-        if (res != null) {
-          isPaymentSuccess(() => !paymentSuccess);
-          // setPaymentId(res);
-          const result = await axios.post("http://localhost:8080/food-villa/api/v1/payment-status", { payemtSuccess: true, res });
-          console.log(result);
+        const succeeded = crypto.HmacSHA256(`${orderId}|${response.razorpay_payment_id}`, keySecret).toString() === response.razorpay_signature;
+
+        if (succeeded) {
           navigate("/");
         } else {
-          navigate("/about");
+          handlePaymentStatus("failed", {
+            orderId,
+            paymentId: response.razorpay_payment_id,
+          });
         }
+      },
+      modal: {
+        confirm_close: true, // this is set to true, if we want confirmation when clicked on cross button.
+        // This function is executed when checkout modal is closed
+        // There can be 3 reasons when this modal is closed.
+        ondismiss: async (reason) => {
+          const { reason: paymentReason, field, step, code } = reason && reason.error ? reason.error : {};
+          // Reason 1 - when payment is cancelled. It can happend when we click cross icon or cancel any payment explicitly.
+          if (reason === undefined) {
+            console.log("cancelled");
+            handlePaymentStatus("Cancelled");
+          }
+          // Reason 2 - When modal is auto closed because of time out
+          else if (reason === "timeout") {
+            console.log("timedout");
+            handlePaymentStatus("timedout");
+          }
+          // Reason 3 - When payment gets failed.
+          else {
+            console.log("failed");
+            handlePaymentStatus("failed", {
+              paymentReason,
+              field,
+              step,
+              code,
+            });
+          }
+        },
+      },
+      retry: {
+        enabled: false,
       },
       prefill: {
         name: "Piyush Garg",
