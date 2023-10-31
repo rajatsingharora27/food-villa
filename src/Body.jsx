@@ -7,6 +7,8 @@ import store from "./redux/store";
 import ErrorPage from "./pages/Error/ErrorPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/SignUp/SignUp";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -15,6 +17,8 @@ const Body = () => {
     { path: "/shop/:type", element: <ShopPage /> },
     { path: "/product/:id", element: <ProductPage /> },
     { path: "/shopping-cart", element: <ShoppingCart /> },
+    { path: "/login", element: <Login /> },
+    { path: "/signup", element: <SignUp /> },
     { path: "*", element: <ErrorPage /> },
   ]);
 

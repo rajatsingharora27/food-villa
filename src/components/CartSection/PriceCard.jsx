@@ -2,13 +2,43 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import useRazorpay from "react-razorpay";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 const PriceCard = () => {
   const [Razorpay] = useRazorpay();
   const navigate = useNavigate();
 
   const handlePaymentStatus = (status) => {
-    const result = axios.post("http://localhost:8080/food-villa/api/v1/payment-fail", { payemtSuccess: true });
+    let test = {
+      userInformation: {
+        userName: "rajat",
+        emailId: "rajatsingharora27@gmail.com",
+        contactNumber: "9078802386",
+        address: "68/5339 karol bagh",
+        pin: "110005",
+        extraInstructions: "",
+        userId: "If registered User then provide",
+        delevirySlot: "10 AM - 5 PM",
+        totalCost: 4000,
+        token: "",
+        razorPayorderId: "",
+      },
+      cartItem: [
+        {
+          productName: "Eggless Crunchy Nougat",
+          productId: "884ccdcf-8e58-4518-b85c-af4b4ccd0ec9",
+          productPrice: "2400",
+          quantity: 1,
+        },
+        {
+          productName: "Cheese cake",
+          productId: "1197ae2c-bb83-4c43-b332-0b6afb195feb",
+          productPrice: 2400,
+          quantity: 1,
+        },
+      ],
+    };
+    const result = axios.post("http://localhost:8080/food-villa/api/v1/payment-fail", test);
     console.log(result);
   };
 
@@ -58,13 +88,43 @@ const PriceCard = () => {
       currency: "INR",
       name: "Acme Corp",
       description: "Test Transaction",
-
+      order_id: "order_Mutfnfj2jLLVtc",
       handler: async (res) => {
         alert(res);
         console.log(res);
-        const succeeded = crypto.HmacSHA256(`${orderId}|${response.razorpay_payment_id}`, keySecret).toString() === response.razorpay_signature;
+        const succeeded = CryptoJS.HmacSHA256(`order_Mutfnfj2jLLVtc|${res.razorpay_payment_id}`, "qQczl8vdksUpa7LnIrKiSLu0").toString() === res.razorpay_signature;
 
         if (succeeded) {
+          const data = {
+            userInformation: {
+              userName: "rajat",
+              emailId: "rajatsingharora27@gmail.com",
+              contactNumber: "9078802386",
+              address: "68/5339 karol bagh",
+              pin: "110005",
+              extraInstructions: "",
+              userId: "If registered User then provide",
+              delevirySlot: "10 AM - 5 PM",
+              totalCost: 4000,
+              token: "",
+              razorPayId: res.razorpay_payment_id,
+            },
+            cartItem: [
+              {
+                productName: "Eggless Crunchy Nougat",
+                productId: "884ccdcf-8e58-4518-b85c-af4b4ccd0ec9",
+                productPrice: "2400",
+                quantity: 1,
+              },
+              {
+                productName: "Cheese cake",
+                productId: "1197ae2c-bb83-4c43-b332-0b6afb195feb",
+                productPrice: "2400",
+                quantity: 1,
+              },
+            ],
+          };
+          axios.post("http://localhost:8080/food-villa/api/v1/payment-success", data);
           navigate("/");
         } else {
           handlePaymentStatus("failed", {
