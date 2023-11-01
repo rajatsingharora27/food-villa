@@ -12,7 +12,7 @@ const Login = () => {
         </p>
 
         <form action='' className='mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8'>
-          <p className='text-center text-lg font-medium'>Sign in to your account</p>
+          <p className='text-center text-lg font-medium'>Sign into your account</p>
 
           <div>
             <label htmlFor='email' className='sr-only'>
@@ -57,19 +57,25 @@ const Login = () => {
             </div>
           </div>
 
-          <button type='submit' className='block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white'>
+          <button type='submit' className='block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white cursor-pointer'>
             Sign in
           </button>
 
           <p className='text-center text-sm text-gray-500 cursor-pointer '>
             No account?
             <span
-              className='mx-5'
+              className='underline cursor-pointer'
               onClick={() => {
                 navigate("/signup");
               }}
             >
               Sign up
+            </span>
+          </p>
+          <p className='text-center text-sm text-gray-500'>
+            Shop without sign-up?{" "}
+            <span className='underline cursor-pointer' onClick={() => navigate("/")}>
+              Take me home
             </span>
           </p>
         </form>
