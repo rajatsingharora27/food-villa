@@ -42,7 +42,12 @@ const Navbar = () => {
               <div className="flex gap-x-7 justify-center items-center">
                 <li className="mt-4 lg:mt-0">
                   <div className="text">
-                    <FaShoppingCart className="text-2xl" />
+                    <FaShoppingCart
+                      className="text-2xl cursor-pointer"
+                      onClick={() => {
+                        navigate("/shopping-cart");
+                      }}
+                    />
                   </div>
                 </li>
                 <li className="mt-8 lg:mt-0">
