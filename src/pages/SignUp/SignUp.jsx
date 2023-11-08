@@ -64,6 +64,12 @@ const SignUp = () => {
       //before goin here check in redux if user has something in wishlist or cart
       // if yes the make the object according to that
       const signUpRespone = await axios.post(import.meta.env.VITE_REACT_APP_SIGNUP_USER, userObject);
+      if (signUpRespone.status === 201) {
+        toast.success("User Created Successfully");
+        sessionStorage.setItem("userToken", signUpRespone.data.responseData.token);
+
+        navigate("/");
+      }
       console.log(signUpRespone);
 
       // after getting the response and the token in local storage
