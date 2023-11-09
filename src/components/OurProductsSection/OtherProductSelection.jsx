@@ -1,17 +1,24 @@
+import { useEffect, useState } from "react";
 import ProductCart from "../ProductCard/ProductCart";
+import axios from "axios";
+import ProductListing from "../../pages/CommonShopPage/ProductListing";
 
 const OtherProductSelection = () => {
-  return (
-    <div className="grid  grid-cols-1  sm:grid-cols-2   md:grid-cols-4  place-items-center gap-y-14 mt-16  ">
-      {/* when using id pass the id as well */}
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
+  const [mainPageData, setMainPageData] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      console.log("In use Effect");
+      const response = await axios.get("http://localhost:8080/food-villa/api/v1/get-random");
+      setMainPageData(response.data.data.productDetails);
+    };
+    getData();
+  }, []);
+  //localhost:8080/food-villa/api/v1/get-random
+
+  http: return (
+    <div className='grid  grid-cols-1   mt-16  '>
+      <ProductListing productlist={mainPageData} />
     </div>
   );
 };
