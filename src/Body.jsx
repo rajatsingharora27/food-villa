@@ -9,6 +9,8 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -22,10 +24,14 @@ const Body = () => {
     { path: "*", element: <ErrorPage /> },
   ]);
 
+  let persistor = persistStore(store);
+
   return (
     <div>
       <Provider store={store}>
-        <RouterProvider router={appRouter} />
+        <PersistGate persistor={persistor}>
+          <RouterProvider router={appRouter} />
+        </PersistGate>
       </Provider>
     </div>
   );
