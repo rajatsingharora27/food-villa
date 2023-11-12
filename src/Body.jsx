@@ -29,7 +29,7 @@ const Body = () => {
   return (
     <div>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
+        <PersistGate loading={<h1 className='text-xs text-white'> LOADING</h1>} persistor={persistor}>
           <RouterProvider router={appRouter} />
         </PersistGate>
       </Provider>
