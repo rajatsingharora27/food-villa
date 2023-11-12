@@ -39,7 +39,7 @@ const PriceCard = () => {
       ],
     };
     const result = axios.post("http://localhost:8080/food-villa/api/v1/payment-fail", test);
-    console.log(result);
+    // console.log(result);
   };
 
   const paymentAndUpdate = async () => {
@@ -72,7 +72,7 @@ const PriceCard = () => {
       ],
     };
     const response = await axios.post("http://localhost:8080/food-villa/api/v1/place-order", data);
-    console.log(response.data);
+    // console.log(response.data);
     if (response.data.isValid == false) {
       // update cart items
       return;
@@ -91,7 +91,7 @@ const PriceCard = () => {
       order_id: "order_Mutfnfj2jLLVtc",
       handler: async (res) => {
         alert(res);
-        console.log(res);
+        // console.log(res);
         const succeeded = CryptoJS.HmacSHA256(`order_Mutfnfj2jLLVtc|${res.razorpay_payment_id}`, "qQczl8vdksUpa7LnIrKiSLu0").toString() === res.razorpay_signature;
 
         if (succeeded) {
@@ -141,7 +141,7 @@ const PriceCard = () => {
           const { reason: paymentReason, field, step, code } = reason && reason.error ? reason.error : {};
           // Reason 1 - when payment is cancelled. It can happend when we click cross icon or cancel any payment explicitly.
           if (reason === undefined) {
-            console.log("cancelled");
+            // console.log("cancelled");
             handlePaymentStatus("Cancelled");
           }
           // Reason 2 - When modal is auto closed because of time out
@@ -151,7 +151,7 @@ const PriceCard = () => {
           }
           // Reason 3 - When payment gets failed.
           else {
-            console.log("failed");
+            // console.log("failed");
             handlePaymentStatus("failed", {
               paymentReason,
               field,

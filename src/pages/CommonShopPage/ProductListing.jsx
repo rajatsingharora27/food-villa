@@ -6,7 +6,7 @@ import axios from "axios";
 
 const ProductListing = ({ productlist }) => {
   const path = useSelector((state) => state.currentPage.path);
-  console.log(productlist);
+  // console.log(productlist);
   // console.log("PP", productProp);
   // const [product, setProduct] = useState([]);
   // const urlParam = useParams();
@@ -38,7 +38,7 @@ const ProductListing = ({ productlist }) => {
   return (
     // flex justify-center items-center gap-x-7 p-10
     <div className=' grid grid-cols-4 place-items-center gap-y-10'>
-      {console.log(productlist)}
+      {/* {console.log(productlist)} */}
       {productlist != undefined && productlist.length != 0 ? (
         <>
           {productlist.map((productDetail) => {
