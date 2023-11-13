@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWishLsit, removeFromWishList, resetRemoveFromWishListArray } from "../../redux/Slices/wishListSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { addToCart } from "../../redux/Slices/cartSlice";
 
 const ProductCart = ({ props }) => {
   const navigate = useNavigate();
@@ -43,11 +44,6 @@ const ProductCart = ({ props }) => {
       // toast.info("Please Log in to add to wish list");
       navigate("/login");
     }
-    // else {
-    //   let productIdArrayForWishList = wishListItemsStore.map((ele) => {
-    //     return ele;
-    //   });
-    // }
   };
 
   const handleRemoveFromWishList = () => {
@@ -55,6 +51,25 @@ const ProductCart = ({ props }) => {
     setWishListButtonClicked(true);
     dispatch(removeFromWishList(props.id));
     console.log("remove", removedItemFromWishList);
+  };
+
+  const handleUserCartItem = () => {
+    console.log(props);
+    // if user is logged in then call the api to store in db
+
+    // if user has added items in cart and after theat he login/signUp then call the api to backend to store the
+    // cart items of that user
+
+    // is user is not signed in just add data to redux and update the cart
+
+    const userCartObject = {
+      productId: props.id,
+      quantity: 1,
+      isPurchased: false,
+      increase: true,
+      decrease: false,
+    };
+    dispatch(addToCart(userCartObject));
   };
 
   useEffect(() => {
@@ -104,7 +119,7 @@ const ProductCart = ({ props }) => {
           ) : (
             <AiFillHeart className='text-2xl cursor-pointer text-red-500' onClick={handleRemoveFromWishList} />
           )}
-          <AiOutlineShoppingCart className='text-2xl cursor-pointer' />
+          <AiOutlineShoppingCart className='text-2xl cursor-pointer' onClick={handleUserCartItem} />
 
           <div className='flex justify-center items-center'>
             <BsCurrencyRupee className='text-2xl' /> <span className='text-2xl'>{props.price}</span>
