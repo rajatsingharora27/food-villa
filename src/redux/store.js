@@ -116,3 +116,9 @@ export const store = configureStore({
 });
 
 export const persistedStore = persistStore(store);
+
+export const purgeStoreFun = () => {
+  persistedStore.purge().then(() => {
+    console.log("Persisted data cleared");
+  });
+};

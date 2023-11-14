@@ -9,15 +9,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWishLsit, removeFromWishList, resetRemoveFromWishListArray } from "../../redux/Slices/wishListSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { addToCart } from "../../redux/Slices/cartSlice";
+import { addToCart, removeCartItem } from "../../redux/Slices/cartSlice";
+import { FaCartPlus } from "react-icons/fa6";
 
 const ProductCart = ({ props }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const wishListItemsStore = useSelector((store) => store.wishList.wishListItemsList);
   const removedItemFromWishList = useSelector((store) => store.wishList.removedWishListItems);
+  const currentCartItems = useSelector((store) => store.cartList.cart);
   const [addToWishList, setAddToWihsList] = useState(true);
   const [wishListButtonClicked, setWishListButtonClicked] = useState(false);
+  const [isCartUpdated, setIsCartUpdated] = useState(false);
 
   const updateCartItemsInDB = (dataObj, delay) => {
     try {
@@ -70,7 +73,17 @@ const ProductCart = ({ props }) => {
       decrease: false,
     };
     dispatch(addToCart(userCartObject));
+    setIsCartUpdated(true);
   };
+
+  const handleRemoveCartItem = () => {
+    dispatch(removeCartItem(props.id));
+    setIsCartUpdated(true);
+  };
+
+  useEffect(() => {
+    console.log("Use EffectFor cart"), setIsCartUpdated(false);
+  }, [isCartUpdated == true]);
 
   useEffect(() => {
     const tokenData = localStorage.getItem("jwt");
@@ -119,7 +132,11 @@ const ProductCart = ({ props }) => {
           ) : (
             <AiFillHeart className='text-2xl cursor-pointer text-red-500' onClick={handleRemoveFromWishList} />
           )}
-          <AiOutlineShoppingCart className='text-2xl cursor-pointer' onClick={handleUserCartItem} />
+          {!currentCartItems.hasOwnProperty(props.id) ? (
+            <AiOutlineShoppingCart className='text-2xl cursor-pointer' onClick={handleUserCartItem} />
+          ) : (
+            <FaCartPlus className='text-2xl cursor-pointer ' onClick={handleRemoveCartItem} />
+          )}
 
           <div className='flex justify-center items-center'>
             <BsCurrencyRupee className='text-2xl' /> <span className='text-2xl'>{props.price}</span>

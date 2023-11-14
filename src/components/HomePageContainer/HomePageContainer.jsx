@@ -1,8 +1,14 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { RiLoginCircleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { purgeStoreFun } from "../../redux/store";
+
 const HomePageContainer = () => {
   const navigate = useNavigate();
+
+  const handlePurge = () => {
+    purgeStoreFun();
+  };
 
   return (
     <div className='bg-gradient-to-r from-[#8cf1b5] to-[#8cf1b5] w-full h-1/2 rounded-b-[5rem] shadow-2xl shadow-slate-300'>
@@ -37,6 +43,7 @@ const HomePageContainer = () => {
                   navigate("/shopping-cart");
                 }}
               />
+              <button onClick={handlePurge}>Purge</button>
               <div className='absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full'>1</div>
             </div>
           </div>
