@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { navigation } from "../../constants/navbarNavigations";
 import { FaShoppingCart } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "../../redux/Slices/routeSlics";
 
 const Navbar = () => {

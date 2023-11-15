@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWishLsit, removeFromWishList, resetRemoveFromWishListArray } from "../../redux/Slices/wishListSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { addToCart, removeCartItem } from "../../redux/Slices/cartSlice";
+import { addToCart, checkCartUpdatedStatus, zeroProductQuantityCartItem } from "../../redux/Slices/cartSlice";
 import { FaCartPlus } from "react-icons/fa6";
 
 const ProductCart = ({ props }) => {
@@ -18,6 +18,7 @@ const ProductCart = ({ props }) => {
   const wishListItemsStore = useSelector((store) => store.wishList.wishListItemsList);
   const removedItemFromWishList = useSelector((store) => store.wishList.removedWishListItems);
   const currentCartItems = useSelector((store) => store.cartList.cart);
+
   const [addToWishList, setAddToWihsList] = useState(true);
   const [wishListButtonClicked, setWishListButtonClicked] = useState(false);
   const [isCartUpdated, setIsCartUpdated] = useState(false);
@@ -53,11 +54,9 @@ const ProductCart = ({ props }) => {
     setAddToWihsList(false);
     setWishListButtonClicked(true);
     dispatch(removeFromWishList(props.id));
-    console.log("remove", removedItemFromWishList);
   };
 
   const handleUserCartItem = () => {
-    console.log(props);
     // if user is logged in then call the api to store in db
 
     // if user has added items in cart and after theat he login/signUp then call the api to backend to store the
@@ -73,17 +72,13 @@ const ProductCart = ({ props }) => {
       decrease: false,
     };
     dispatch(addToCart(userCartObject));
-    setIsCartUpdated(true);
+    dispatch(checkCartUpdatedStatus(true));
   };
 
   const handleRemoveCartItem = () => {
-    dispatch(removeCartItem(props.id));
-    setIsCartUpdated(true);
+    dispatch(zeroProductQuantityCartItem(props.id));
+    dispatch(checkCartUpdatedStatus(true));
   };
-
-  useEffect(() => {
-    console.log("Use EffectFor cart"), setIsCartUpdated(false);
-  }, [isCartUpdated == true]);
 
   useEffect(() => {
     const tokenData = localStorage.getItem("jwt");

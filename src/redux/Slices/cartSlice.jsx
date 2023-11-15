@@ -8,6 +8,7 @@ const cartSlice = createSlice({
   name: "cartList",
   initialState: {
     cart: {},
+    cartUpdated: false,
   },
   reducers: {
     addToCart: (state, action) => {
@@ -16,11 +17,11 @@ const cartSlice = createSlice({
       if (!state.cart.hasOwnProperty(productId)) {
         state.cart[productId] = action.payload;
       }
-      console.log(productId, state.cart);
+      // console.log(productId, state.cart);
     },
-    removeCartItem: (state, action) => {
+    zeroProductQuantityCartItem: (state, action) => {
       const productId = action.payload;
-      delete state.cart[productId];
+      state.cart[productId].quantity = 0;
     },
     addToCartSliceAfterLogin: (state, action) => {
       const cartItemsFromApi = action.payload;
@@ -36,8 +37,16 @@ const cartSlice = createSlice({
         }
       });
     },
+    checkCartUpdatedStatus: (state, action) => {
+      console.log("updated status", action.payload);
+      state.cartUpdated = action.payload;
+    },
+    removeProductFromStore: (state, action) => {
+      const productId = action.payload;
+      delete state.cart[productId];
+    },
   },
 });
 
-export const { addToCart, removeCartItem, addToCartSliceAfterLogin } = cartSlice.actions;
+export const { addToCart, zeroProductQuantityCartItem, addToCartSliceAfterLogin, checkCartUpdatedStatus, removeProductFromStore } = cartSlice.actions;
 export default cartSlice.reducer;
