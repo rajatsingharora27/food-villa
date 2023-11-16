@@ -18,3 +18,19 @@ Currently, two official plugins are available:
 
     // need to do
         // if logged in and add item to cart make api call (when logged in only)
+
+// Remaing functionality
+
+    // Sign up
+
+    // logout --> purge during log out
+
+    // make page for user wishlist and cart
+
+    // payment
+
+    // after payment clear user cart for what they placed order
+
+
+    // additional
+        // email on placing order
