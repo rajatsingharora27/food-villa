@@ -15,10 +15,11 @@ import { store, persistedStore } from "./redux/store";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
-    { path: "/", element: <HomePage /> },
+    { path: "/", element: <HomePage />, children: [] },
     { path: "/about", element: <About /> },
-    { path: "/shop/:type", element: <ShopPage /> },
     { path: "/product/:id", element: <ProductPage /> },
+    { path: "/shop/:type", element: <ShopPage /> },
+
     { path: "/shopping-cart", element: <ShoppingCart /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },

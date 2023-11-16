@@ -16,6 +16,8 @@ const cartSlice = createSlice({
       console.log(productId, state.cart);
       if (!state.cart.hasOwnProperty(productId)) {
         state.cart[productId] = action.payload;
+      } else {
+        state.cart[productId] = action.payload;
       }
       // console.log(productId, state.cart);
     },

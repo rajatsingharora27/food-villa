@@ -21,7 +21,6 @@ const ProductCart = ({ props }) => {
 
   const [addToWishList, setAddToWihsList] = useState(true);
   const [wishListButtonClicked, setWishListButtonClicked] = useState(false);
-  const [isCartUpdated, setIsCartUpdated] = useState(false);
 
   const updateCartItemsInDB = (dataObj, delay) => {
     try {
@@ -113,9 +112,9 @@ const ProductCart = ({ props }) => {
       <img
         className='w-full h-[15rem] mb-3 transition duration-300 ease-in-out hover:scale-110 cursor-pointer'
         src={props.image}
-        alt='Sunset in the mountains'
+        alt={props.name}
         onClick={() => {
-          navigate(`product/${id}`);
+          navigate(`/product/${props.id}`, { state: { productProps: props } });
         }}
       />
       <ToastContainer />
