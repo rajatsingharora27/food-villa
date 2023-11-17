@@ -7,7 +7,7 @@ const SectedItemCart = ({ props }) => {
   const [productQuantity, setProductQuantity] = useState(props.quantity);
   const currentCartItems = useSelector((store) => store.cartList.cart);
   const cartDetailsForPrice = useSelector((store) => store.cartList.cartData);
-  const [totalCost, setTotalCost] = useState(0);
+  // const [totalCost, setTotalCost] = useState(0);
   const dispatch = useDispatch();
 
   const handleIncreaseQuantity = () => {
@@ -53,7 +53,7 @@ const SectedItemCart = ({ props }) => {
       dispatch(checkCartUpdatedStatus(true));
     }, 1000);
 
-    setTotalCost(cost);
+    // setTotalCost(cost);
 
     let total;
     cartDetailsForPrice.forEach((ele) => {

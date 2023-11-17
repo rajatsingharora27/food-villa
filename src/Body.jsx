@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import { PersistGate } from "redux-persist/integration/react";
 // import { persistStore } from "redux-persist";
 import { store, persistedStore } from "./redux/store";
+import UserDetailForm from "./components/CartSection/UserDetailForm";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -22,6 +23,7 @@ const Body = () => {
     { path: "/shopping-cart", element: <ShoppingCart /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },
+    { path: "/user-detail", element: <UserDetailForm /> },
     { path: "*", element: <ErrorPage /> },
   ]);
 

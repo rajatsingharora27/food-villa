@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import { cartDataToArray } from "../../redux/Slices/cartSlice";
 import ErrorPage from "../Error/ErrorPage";
+import UserDetailForm from "../../components/CartSection/UserDetailForm";
 
 const ShoppingCart = () => {
   const userCartDetails = useSelector((store) => store.cartList.cart);
@@ -46,7 +47,10 @@ const ShoppingCart = () => {
                 );
               })}
             </div>
+            {/* <div className='flex flex-col'> */}
+            {/* <UserDetailForm /> */}
             <PriceCard />
+            {/* </div> */}
           </div>
         </div>
       ) : (
