@@ -7,52 +7,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, addToCartSliceAfterLogin, checkCartUpdatedStatus } from "../../redux/Slices/cartSlice";
 
 const ProductPage = () => {
-  // const location = useLocation();
-
-  // const productProps = location.state.productProps;
+  const productCompleteDetail = useLocation();
   const { id } = useParams();
   const dispatch = useDispatch();
   const currentCartItems = useSelector((store) => store.cartList.cart);
   const [productDetails, setProductDetails] = useState();
   const [loading, setLoading] = useState(true);
   const [productQuantity, setProductQuantity] = useState(0);
-  // const [quantityUpdated, setQuantityUpdated] = useState(false);
+  const { name, image, price } = productCompleteDetail.state.productProps;
 
   const handleIncreaseQuantity = () => {
     setProductQuantity(productQuantity + 1);
-    // setQuantityUpdated(true);
   };
   const handleDecreaseQuantity = () => {
     if (productQuantity > 0) {
       setProductQuantity(productQuantity - 1);
-      // setQuantityUpdated(true);
     }
   };
 
-  // const handleAddToCart = () => {
-  //   if (!currentCartItems.hasOwnProperty(id)) {
-  //     // product is not in the store
-  //     const userCartObject = {
-  //       productId: id,
-  //       quantity: productQuantity,
-  //       isPurchased: false,
-  //       increase: true,
-  //       decrease: false,
-  //     };
-  //     dispatch(addToCart(userCartObject));
-  //     dispatch(checkCartUpdatedStatus(true));
-  //   }
-  // };
-
   useEffect(() => {
-    console.log("Quntity updated", productQuantity);
-    // console.log(currentCartItems[id].quantity);
     const timer = setTimeout(() => {
       let userCartObject;
       if (!currentCartItems.hasOwnProperty(id)) {
         userCartObject = {
           productId: id,
           quantity: productQuantity,
+          name,
+          image,
+          price,
           isPurchased: false,
           increase: true,
           decrease: false,
@@ -61,6 +43,9 @@ const ProductPage = () => {
         userCartObject = {
           productId: id,
           quantity: productQuantity,
+          name,
+          image,
+          price,
           isPurchased: false,
           increase: true,
           decrease: false,
@@ -68,7 +53,6 @@ const ProductPage = () => {
       }
       dispatch(addToCart(userCartObject));
       dispatch(checkCartUpdatedStatus(true));
-      // setQuantityUpdated(false);
     }, 1000);
 
     return () => {
@@ -83,7 +67,6 @@ const ProductPage = () => {
 
       if (currentCartItems.hasOwnProperty(id)) {
         const productFormCart = currentCartItems[id];
-        // console.log(productFormCart["quantity"]);
         setProductQuantity(productFormCart["quantity"]);
       }
       setLoading(false);

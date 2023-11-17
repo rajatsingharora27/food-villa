@@ -14,9 +14,7 @@ const OtherProductSelection = () => {
     };
     getData();
   }, []);
-  //localhost:8080/food-villa/api/v1/get-random
-
-  http: return (
+  return (
     <div className='grid  grid-cols-1   mt-16  '>
       <ProductListing productlist={mainPageData} />
     </div>

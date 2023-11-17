@@ -19,7 +19,6 @@ const Body = () => {
     { path: "/about", element: <About /> },
     { path: "/product/:id", element: <ProductPage /> },
     { path: "/shop/:type", element: <ShopPage /> },
-
     { path: "/shopping-cart", element: <ShoppingCart /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },

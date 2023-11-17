@@ -6,6 +6,7 @@ import axios from "axios";
 
 const ProductListing = ({ productlist }) => {
   const path = useSelector((state) => state.currentPage.path);
+  console.log("productList", productlist);
 
   return (
     // flex justify-center items-center gap-x-7 p-10

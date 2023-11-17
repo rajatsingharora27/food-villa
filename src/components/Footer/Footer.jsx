@@ -2,46 +2,49 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkCartUpdatedStatus, removeProductFromStore } from "../../redux/Slices/cartSlice";
 import axios from "axios";
+import { useCartUpdate } from "../../hooks/useCartUpdate";
 
 const Footer1 = () => {
-  const dispatch = useDispatch();
-  const cartUpdatedStatus = useSelector((store) => store.cartList.cartUpdated);
-  const cartItems = useSelector((store) => store.cartList.cart);
+  // const dispatch = useDispatch();
+  // const cartUpdatedStatus = useSelector((store) => store.cartList.cartUpdated);
+  // const cartItems = useSelector((store) => store.cartList.cart);
 
-  useEffect(() => {
-    console.log("Use Effect For cart");
-    const tokenData = localStorage.getItem("jwt");
-    let cartItemForApi = [];
-    console.log(cartItems);
-    let timeOutId;
-    if (tokenData != null) {
-      // means logged in user
-      for (let key in cartItems) {
-        cartItemForApi.push(cartItems[key]);
-      }
+  // useEffect(() => {
+  //   console.log("Use Effect For cart");
+  //   const tokenData = localStorage.getItem("jwt");
+  //   let cartItemForApi = [];
+  //   console.log(cartItems);
+  //   let timeOutId;
+  //   if (tokenData != null) {
+  //     // means logged in user
+  //     for (let key in cartItems) {
+  //       cartItemForApi.push(cartItems[key]);
+  //     }
 
-      const putCartItemsToDb = (cart, delay) => {
-        const reqObject = {
-          productToCartQuantity: cart,
-          token: tokenData,
-        };
-        timeOutId = setTimeout(async () => {
-          await axios.post("http://localhost:8080/food-villa/api/v1/cart-update", reqObject);
-          for (let key in cartItems) {
-            if (cartItems[key].quantity == 0) {
-              dispatch(removeProductFromStore(key));
-            }
-          }
-        }, delay);
-      };
+  //     const putCartItemsToDb = (cart, delay) => {
+  //       const reqObject = {
+  //         productToCartQuantity: cart,
+  //         token: tokenData,
+  //       };
+  //       timeOutId = setTimeout(async () => {
+  //         await axios.post("http://localhost:8080/food-villa/api/v1/cart-update", reqObject);
+  //         for (let key in cartItems) {
+  //           if (cartItems[key].quantity == 0) {
+  //             dispatch(removeProductFromStore(key));
+  //           }
+  //         }
+  //       }, delay);
+  //     };
 
-      putCartItemsToDb(cartItemForApi, 200);
-    }
-    dispatch(checkCartUpdatedStatus(false));
-    return () => {
-      clearTimeout(timeOutId);
-    };
-  }, [cartUpdatedStatus == true]);
+  //     putCartItemsToDb(cartItemForApi, 200);
+  //   }
+  //   dispatch(checkCartUpdatedStatus(false));
+  //   return () => {
+  //     clearTimeout(timeOutId);
+  //   };
+  // }, [cartUpdatedStatus == true]);
+
+  useCartUpdate();
 
   return (
     <footer className='w-full py-5 sm:py-10 px-4 bg-gray-800 mt-14'>

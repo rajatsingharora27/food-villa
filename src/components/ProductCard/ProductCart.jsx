@@ -66,10 +66,14 @@ const ProductCart = ({ props }) => {
     const userCartObject = {
       productId: props.id,
       quantity: 1,
+      image: props.image,
+      name: props.name,
+      price: props.price,
       isPurchased: false,
       increase: true,
       decrease: false,
     };
+
     dispatch(addToCart(userCartObject));
     dispatch(checkCartUpdatedStatus(true));
   };
