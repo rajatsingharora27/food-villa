@@ -11,6 +11,7 @@ const cartSlice = createSlice({
     cartUpdated: false,
     totalItemsInCart: 0,
     cartData: [],
+    // totalPrice: 0,
   },
   reducers: {
     addToCart: (state, action) => {
@@ -51,6 +52,18 @@ const cartSlice = createSlice({
     cartDataToArray: (state, action) => {
       state.cartData = action.payload;
     },
+
+    // totalCartPrice: (state, action) => {
+    //   state.totalPrice = action.payload;
+    //   // let initial = 0;
+    //   // for (const key in state.cart) {
+    //   //   // console.log(state.cart[key].price);
+    //   //   initial += state.cart[key].quantity * state.cart[key].price;
+    //   //   // console.log(state.totalPrice);
+    //   // }
+    //   // state.totalPrice = initial;
+    //   // console.log(initial);
+    // },
   },
 });
 

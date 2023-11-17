@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, checkCartUpdatedStatus } from "../../redux/Slices/cartSlice";
+import ErrorPage from "../../pages/Error/ErrorPage";
 
 const SectedItemCart = ({ props }) => {
   const [productQuantity, setProductQuantity] = useState(props.quantity);
   const currentCartItems = useSelector((store) => store.cartList.cart);
+  const cartDetailsForPrice = useSelector((store) => store.cartList.cartData);
+  const [totalCost, setTotalCost] = useState(0);
   const dispatch = useDispatch();
 
   const handleIncreaseQuantity = () => {
@@ -17,6 +20,7 @@ const SectedItemCart = ({ props }) => {
   };
 
   useEffect(() => {
+    let cost = 0;
     const timer = setTimeout(() => {
       let userCartObject;
       if (!currentCartItems.hasOwnProperty(props.productId)) {
@@ -42,15 +46,30 @@ const SectedItemCart = ({ props }) => {
           decrease: false,
         };
       }
+
+      // calculate total price
+
       dispatch(addToCart(userCartObject));
       dispatch(checkCartUpdatedStatus(true));
     }, 1000);
+
+    setTotalCost(cost);
+
+    let total;
+    cartDetailsForPrice.forEach((ele) => {
+      total = ele.quantity * ele.price;
+    });
+
+    // dispatch(totalCartPrice(total));
 
     return () => {
       clearTimeout(timer);
     };
   }, [productQuantity]);
 
+  // if (Object.keys(currentCartItems).length === 0) {
+  //   return <ErrorPage />;
+  // }
   if (productQuantity === 0) return;
 
   return (

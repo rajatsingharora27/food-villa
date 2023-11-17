@@ -12,7 +12,8 @@ export const useCartUpdate = () => {
     console.log("Use Effect For cart");
     const tokenData = localStorage.getItem("jwt");
     let cartItemForApi = [];
-    console.log(cartItems);
+    let list = [];
+    // console.log(cartItems);
     let timeOutId;
     if (tokenData != null) {
       // means logged in user
@@ -34,16 +35,13 @@ export const useCartUpdate = () => {
           }
         }, delay);
       };
-
       putCartItemsToDb(cartItemForApi, 200);
+    } else {
     }
-
-    let list = [];
     for (const key in cartItems) {
       list.push(cartItems[key]);
     }
     dispatch(cartDataToArray(list));
-
     dispatch(checkCartUpdatedStatus(false));
     return () => {
       clearTimeout(timeOutId);

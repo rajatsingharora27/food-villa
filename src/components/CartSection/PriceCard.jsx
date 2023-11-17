@@ -3,8 +3,12 @@ import { useCallback, useEffect, useState } from "react";
 import useRazorpay from "react-razorpay";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { useSelector } from "react-redux";
 
 const PriceCard = () => {
+  const currentCartItems = useSelector((store) => store.cartList.cartData);
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const [Razorpay] = useRazorpay();
   const navigate = useNavigate();
 
@@ -181,11 +185,20 @@ const PriceCard = () => {
     rzpay.open();
   }, [Razorpay]);
 
+  useEffect(() => {
+    let total = 0;
+    currentCartItems.forEach((ele) => {
+      total += ele.quantity * ele.price;
+    });
+
+    setTotalPrice(total);
+  }, [currentCartItems]);
+
   return (
     <div className='mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3 sticky top-12 '>
       <div className='mb-2 flex justify-between'>
         <p className='text-gray-700'>Subtotal</p>
-        <p className='text-gray-700'>$129.99</p>
+        <p className='text-gray-700'>₹ {totalPrice}</p>
       </div>
       <div className='flex justify-between'>
         <p className='text-gray-700'>Shipping</p>

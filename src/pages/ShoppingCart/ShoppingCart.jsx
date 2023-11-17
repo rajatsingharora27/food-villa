@@ -5,6 +5,7 @@ import Footer1 from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import { cartDataToArray } from "../../redux/Slices/cartSlice";
+import ErrorPage from "../Error/ErrorPage";
 
 const ShoppingCart = () => {
   const userCartDetails = useSelector((store) => store.cartList.cart);
@@ -49,7 +50,7 @@ const ShoppingCart = () => {
           </div>
         </div>
       ) : (
-        <h1 className='text-black'>No Items in cart Avaiable</h1>
+        <ErrorPage />
       )}
       <Footer1 />
     </>
