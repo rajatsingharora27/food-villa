@@ -11,7 +11,6 @@ const PriceCard = () => {
   const [gst, setGst] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
 
-  const [Razorpay] = useRazorpay();
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -3,10 +3,13 @@ import { RiLoginCircleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { purgeStoreFun } from "../../redux/store";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const HomePageContainer = () => {
   const navigate = useNavigate();
   const totalCartItems = useSelector((store) => store.cartList.cart);
+  // navigate(0);s
+  console.log("BAck to hame");
 
   const handlePurge = () => {
     purgeStoreFun();
@@ -45,7 +48,7 @@ const HomePageContainer = () => {
                   navigate("/shopping-cart");
                 }}
               />
-              <button onClick={handlePurge}>Purge</button>
+              {/* <button onClick={handlePurge}>Purge</button> */}
               <div className='absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full'>{Object.keys(totalCartItems).length}</div>
             </div>
           </div>
