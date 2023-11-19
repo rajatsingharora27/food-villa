@@ -13,7 +13,7 @@ const ShopPage = () => {
   useEffect(() => {
     const getData = async () => {
       console.log("In use Effect");
-      const response = await axios.get("http://localhost:8080/food-villa/api/v1/get-product", { params: { category: urlParam.type } });
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_GET_PRODUCT, { params: { category: urlParam.type } });
       setProduct(response.data.data.productDetails);
     };
     getData();
