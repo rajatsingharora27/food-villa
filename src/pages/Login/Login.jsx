@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToSliceWishListItemsAfterLogin } from "../../redux/Slices/wishListSlice";
+import { addToCartSliceAfterLogin } from "../../redux/Slices/cartSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Login = () => {
   const [type, setType] = useState("password");
   const [loader, setLoader] = useState(false);
   const wishListItemsStore = useSelector((store) => store.wishList.wishListItemsList);
+  const cartItemStore = useSelector((store) => store.cartList.cart);
   const dispatch = useDispatch();
 
   const handlePasswordShow = () => {
@@ -27,10 +29,18 @@ const Login = () => {
     let wishListItemsMap = wishListItemsStore.map((ele) => {
       return { product: ele };
     });
+    let cartItemList = [];
+    for (const key in cartItemStore) {
+      if (cartItemStore.hasOwnProperty(key)) {
+        console.log(`${key}: ${cartItemStore[key]}`);
+        cartItemList.push(cartItemStore[key]);
+      }
+    }
     const signInObject = {
       emailId: emailId,
       password: password,
       wishListItems: wishListItemsMap,
+      cartItems: cartItemList,
     };
     console.log(signInObject);
     try {
@@ -46,10 +56,10 @@ const Login = () => {
       if (signedInUserObject.cartItem !== null || signedInUserObject.cartItem !== undefined) {
         cartItems = signedInUserObject.cartItem;
         // from here only dispatch the cart item to store
+        dispatch(addToCartSliceAfterLogin(cartItems));
       }
       if (signedInUserObject.wishListItem !== null || signedInUserObject.wishListItem !== undefined) {
         wishListItems = signedInUserObject.wishListItem;
-        console.log("HERE");
         // from here only dispatch the wishlist item to store
         dispatch(addToSliceWishListItemsAfterLogin(wishListItems));
       }

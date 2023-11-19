@@ -19,7 +19,6 @@ const wishListSlice = createSlice({
       const userWishList = action.payload;
       console.log(userWishList);
       userWishList.forEach((ele) => {
-        console.log(ele);
         if (!state.wishListItemsList.includes(ele)) {
           state.wishListItemsList.push(ele);
         }
