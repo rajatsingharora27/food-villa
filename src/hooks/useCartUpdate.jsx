@@ -27,7 +27,7 @@ export const useCartUpdate = () => {
           token: tokenData,
         };
         timeOutId = setTimeout(async () => {
-          await axios.post("http://localhost:8080/food-villa/api/v1/cart-update", reqObject);
+          await axios.post(import.meta.env.VITE_REACT_APP_GET_CART_UPDATE, reqObject);
           for (let key in cartItems) {
             if (cartItems[key].quantity == 0) {
               dispatch(removeProductFromStore(key));

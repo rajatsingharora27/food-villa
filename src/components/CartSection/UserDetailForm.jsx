@@ -244,11 +244,11 @@ const UserDetailForm = () => {
       },
       cartItem: list,
     };
-    const response = await axios.post("http://localhost:8080/food-villa/api/v1/place-order", data);
+    const response = await axios.post(import.meta.env.VITE_REACT_APP_PLACE_ORDER, data);
     console.log(response);
 
     const options = {
-      key: "rzp_test_Gve1XEYDMYKP0W", // Enter the Key ID generated from the Dashboard
+      key: import.meta.env.VITE_REACT_APP_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
       amount: response.data.data.orderInitaiateDetails.amount.toString(),
       currency: "INR",
       name: name,
@@ -276,11 +276,11 @@ const UserDetailForm = () => {
           cartItem: list,
         };
         if (succeeded) {
-          axios.post("http://localhost:8080/food-villa/api/v1/payment-success", data);
+          axios.post(import.meta.env.VITE_REACT_APP_PAYMENT_SUCCESS, data);
           dispatch(emptyCart());
           navigate("/");
         } else {
-          const result = axios.post("http://localhost:8080/food-villa/api/v1/payment-fail", data);
+          const result = axios.post(import.meta.env.VITE_REACT_APP_PAYMENT_FAIL, data);
           console.log(result);
         }
       },
