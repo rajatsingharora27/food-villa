@@ -45,7 +45,7 @@ const Login = () => {
     console.log(signInObject);
     try {
       setLoader(true);
-      const signInData = await axios.post("http://localhost:8080/food-villa/api/v1/sign-in", signInObject);
+      const signInData = await axios.post(import.meta.env.VITE_REACT_APP_SIGN_IN, signInObject);
       setLoader(false);
       // User is present
       const signedInUserObject = signInData.data.responseData;
