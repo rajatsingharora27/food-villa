@@ -9,12 +9,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWishLsit, removeFromWishList, resetRemoveFromWishListArray } from "../../redux/Slices/wishListSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { addToCart, checkCartUpdatedStatus, zeroProductQuantityCartItem } from "../../redux/Slices/cartSlice";
+import { FaCartPlus } from "react-icons/fa6";
 
 const ProductCart = ({ props }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const wishListItemsStore = useSelector((store) => store.wishList.wishListItemsList);
   const removedItemFromWishList = useSelector((store) => store.wishList.removedWishListItems);
+  const currentCartItems = useSelector((store) => store.cartList.cart);
+
   const [addToWishList, setAddToWihsList] = useState(true);
   const [wishListButtonClicked, setWishListButtonClicked] = useState(false);
 
@@ -43,18 +47,40 @@ const ProductCart = ({ props }) => {
       // toast.info("Please Log in to add to wish list");
       navigate("/login");
     }
-    // else {
-    //   let productIdArrayForWishList = wishListItemsStore.map((ele) => {
-    //     return ele;
-    //   });
-    // }
   };
 
   const handleRemoveFromWishList = () => {
     setAddToWihsList(false);
     setWishListButtonClicked(true);
     dispatch(removeFromWishList(props.id));
-    console.log("remove", removedItemFromWishList);
+  };
+
+  const handleUserCartItem = () => {
+    // if user is logged in then call the api to store in db
+
+    // if user has added items in cart and after theat he login/signUp then call the api to backend to store the
+    // cart items of that user
+
+    // is user is not signed in just add data to redux and update the cart
+
+    const userCartObject = {
+      productId: props.id,
+      quantity: 1,
+      image: props.image,
+      name: props.name,
+      price: props.price,
+      isPurchased: false,
+      increase: true,
+      decrease: false,
+    };
+
+    dispatch(addToCart(userCartObject));
+    dispatch(checkCartUpdatedStatus(true));
+  };
+
+  const handleRemoveCartItem = () => {
+    dispatch(zeroProductQuantityCartItem(props.id));
+    dispatch(checkCartUpdatedStatus(true));
   };
 
   useEffect(() => {
@@ -90,9 +116,9 @@ const ProductCart = ({ props }) => {
       <img
         className='w-full h-[15rem] mb-3 transition duration-300 ease-in-out hover:scale-110 cursor-pointer'
         src={props.image}
-        alt='Sunset in the mountains'
+        alt={props.name}
         onClick={() => {
-          navigate(`product/${id}`);
+          navigate(`/product/${props.id}`, { state: { productProps: props } });
         }}
       />
       <ToastContainer />
@@ -104,7 +130,11 @@ const ProductCart = ({ props }) => {
           ) : (
             <AiFillHeart className='text-2xl cursor-pointer text-red-500' onClick={handleRemoveFromWishList} />
           )}
-          <AiOutlineShoppingCart className='text-2xl cursor-pointer' />
+          {!currentCartItems.hasOwnProperty(props.id) ? (
+            <AiOutlineShoppingCart className='text-2xl cursor-pointer' onClick={handleUserCartItem} />
+          ) : (
+            <FaCartPlus className='text-2xl cursor-pointer ' onClick={handleRemoveCartItem} />
+          )}
 
           <div className='flex justify-center items-center'>
             <BsCurrencyRupee className='text-2xl' /> <span className='text-2xl'>{props.price}</span>
