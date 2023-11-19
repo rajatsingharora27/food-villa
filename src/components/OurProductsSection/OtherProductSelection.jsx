@@ -9,7 +9,7 @@ const OtherProductSelection = () => {
   useEffect(() => {
     const getData = async () => {
       console.log("In use Effect");
-      const response = await axios.get("http://localhost:8080/food-villa/api/v1/get-random");
+      const response = await axios.get(import.meta.env.VITE_REACT_APP_GET_RANDOM_PRODUCTS);
       setMainPageData(response.data.data.productDetails);
     };
     getData();

@@ -9,6 +9,8 @@ const wishListSlice = createSlice({
   initialState: {
     wishListItemsList: [],
     removedWishListItems: [],
+    wishListButtonClickedReduxStore: false,
+    addToWishListReduxStore: true,
   },
   reducers: {
     addWishLsit: (state, action) => {
@@ -36,9 +38,28 @@ const wishListSlice = createSlice({
     resetRemoveFromWishListArray: (state, action) => {
       state.removedWishListItems = [];
     },
+    checkLoggedInUser: (state) => {
+      state.wishListItemsList = [];
+    },
+    wishListButtonClickedAction: (state, action) => {
+      console.log(action.payload);
+      state.wishListButtonClickedReduxStore = action.payload;
+      console.log(state.wishListButtonClickedReduxStore);
+    },
+    addToWishListAction: (state, action) => {
+      state.addToWishListReduxStore = action.payload;
+    },
   },
 });
 
-export const { addWishLsit, removeFromWishList, resetRemoveFromWishListArray, addToSliceWishListItemsAfterLogin } = wishListSlice.actions;
+export const {
+  addWishLsit,
+  removeFromWishList,
+  resetRemoveFromWishListArray,
+  addToSliceWishListItemsAfterLogin,
+  wishListButtonClickedAction,
+  checkLoggedInUser,
+  addToWishListAction,
+} = wishListSlice.actions;
 
 export default wishListSlice.reducer;

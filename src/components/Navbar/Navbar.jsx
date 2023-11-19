@@ -7,7 +7,7 @@ import { setCurrentPage } from "../../redux/Slices/routeSlics";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const totalCartItems = useSelector((store) => store.cartList.cart);
   const handleRoute = (item) => {
     //store the path value
     // api
@@ -36,13 +36,15 @@ const Navbar = () => {
             <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
               <div className='flex gap-x-7 justify-center items-center'>
                 <li className='mt-4 lg:mt-0'>
-                  <div className='text'>
+                  <div className='relative  text-black p-2 rounded text-lg font-bold overflow-visible cursor-pointer'>
                     <FaShoppingCart
-                      className='text-2xl cursor-pointer'
+                      className='text-3xl'
                       onClick={() => {
                         navigate("/shopping-cart");
                       }}
                     />
+                    {/* <button onClick={handlePurge}>Purge</button> */}
+                    <div className='absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full'>{Object.keys(totalCartItems).length}</div>
                   </div>
                 </li>
                 <li className='mt-8 lg:mt-0'>

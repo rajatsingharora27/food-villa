@@ -3,48 +3,65 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkCartUpdatedStatus, removeProductFromStore } from "../../redux/Slices/cartSlice";
 import axios from "axios";
 import { useCartUpdate } from "../../hooks/useCartUpdate";
+import { addToWishListAction, checkLoggedInUser, wishListButtonClickedAction } from "../../redux/Slices/wishListSlice";
 
 const Footer1 = () => {
-  // const dispatch = useDispatch();
-  // const cartUpdatedStatus = useSelector((store) => store.cartList.cartUpdated);
-  // const cartItems = useSelector((store) => store.cartList.cart);
-
-  // useEffect(() => {
-  //   console.log("Use Effect For cart");
-  //   const tokenData = localStorage.getItem("jwt");
-  //   let cartItemForApi = [];
-  //   console.log(cartItems);
-  //   let timeOutId;
-  //   if (tokenData != null) {
-  //     // means logged in user
-  //     for (let key in cartItems) {
-  //       cartItemForApi.push(cartItems[key]);
-  //     }
-
-  //     const putCartItemsToDb = (cart, delay) => {
-  //       const reqObject = {
-  //         productToCartQuantity: cart,
-  //         token: tokenData,
-  //       };
-  //       timeOutId = setTimeout(async () => {
-  //         await axios.post("http://localhost:8080/food-villa/api/v1/cart-update", reqObject);
-  //         for (let key in cartItems) {
-  //           if (cartItems[key].quantity == 0) {
-  //             dispatch(removeProductFromStore(key));
-  //           }
-  //         }
-  //       }, delay);
-  //     };
-
-  //     putCartItemsToDb(cartItemForApi, 200);
-  //   }
-  //   dispatch(checkCartUpdatedStatus(false));
-  //   return () => {
-  //     clearTimeout(timeOutId);
-  //   };
-  // }, [cartUpdatedStatus == true]);
+  const dispatch = useDispatch();
+  const wishListButtonClicked = useSelector((store) => store.wishList.wishListButtonClickedReduxStore);
+  const addToWishList = useSelector((store) => store.wishList.addToWishListReduxStore);
+  const wishListItemsStore = useSelector((store) => store.wishList.wishListItemsList);
+  const removedItemFromWishList = useSelector((store) => store.wishList.removedWishListItems);
 
   useCartUpdate();
+
+  const updateCartItemsInDB = (dataObj, delay) => {
+    try {
+      let timer;
+      const tokenData = localStorage.getItem("jwt");
+      clearTimeout(timer);
+      if (tokenData !== null) {
+        timer = setTimeout(async () => {
+          await axios.post(import.meta.env.VITE_REACT_APP_WISHLIST_UPDATE, dataObj);
+        }, delay);
+      }
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+  // useEffect(() => {
+  //   dispatch(checkLoggedInUser());
+  // }, []);
+
+  useEffect(() => {
+    const tokenData = localStorage.getItem("jwt");
+    let userObj;
+    if (addToWishList == false) {
+      //means need to remove from wish list
+      console.log(addToWishList);
+      removedItemFromWishList;
+      userObj = {
+        productId: removedItemFromWishList,
+        token: tokenData,
+        wishlistAdd: false,
+      };
+    } else {
+      userObj = {
+        productId: wishListItemsStore,
+        token: tokenData,
+        wishlistAdd: true,
+      };
+    }
+
+    const updatWisListDb = async () => {
+      if (tokenData != null) {
+        await axios.post(import.meta.env.VITE_REACT_APP_WISHLIST_UPDATE, userObj);
+      }
+    };
+    updatWisListDb();
+
+    dispatch(addToWishListAction(true));
+    dispatch(wishListButtonClickedAction(false));
+  }, [wishListButtonClicked == true]);
 
   return (
     <footer className='w-full py-5 sm:py-10 px-4 bg-gray-800 mt-14'>

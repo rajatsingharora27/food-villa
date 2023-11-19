@@ -62,7 +62,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     const getProductDetails = async (id) => {
-      const productDataFromApi = await axios.get("http://localhost:8080/food-villa/api/v1/get-product-by-id", { params: { product: id } });
+      const productDataFromApi = await axios.get(import.meta.env.VITE_REACT_APP_GET_PRODUCT_BY_ID, { params: { product: id } });
       setProductDetails(productDataFromApi.data.data);
 
       if (currentCartItems.hasOwnProperty(id)) {

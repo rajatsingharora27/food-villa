@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addWishLsit, removeFromWishList, resetRemoveFromWishListArray } from "../../redux/Slices/wishListSlice";
+import { addWishLsit, removeFromWishList, resetRemoveFromWishListArray, wishListButtonClickedAction, addToWishListAction } from "../../redux/Slices/wishListSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { addToCart, checkCartUpdatedStatus, zeroProductQuantityCartItem } from "../../redux/Slices/cartSlice";
@@ -19,29 +19,9 @@ const ProductCart = ({ props }) => {
   const removedItemFromWishList = useSelector((store) => store.wishList.removedWishListItems);
   const currentCartItems = useSelector((store) => store.cartList.cart);
 
-  const [addToWishList, setAddToWihsList] = useState(true);
-  const [wishListButtonClicked, setWishListButtonClicked] = useState(false);
-
-  const updateCartItemsInDB = (dataObj, delay) => {
-    try {
-      let timer;
-      const tokenData = localStorage.getItem("jwt");
-      clearTimeout(timer);
-      if (tokenData !== null) {
-        timer = setTimeout(async () => {
-          await axios.post("http://localhost:8080/food-villa/api/v1/wishlist-update/", dataObj);
-        }, delay);
-      }
-    } catch (ex) {
-      console.log(ex);
-    }
-  };
-
   const handleWishList = async () => {
-    // Check if the user is signed in or not
-    // check by looking for the token in the local storage
     dispatch(addWishLsit(props.id));
-    setWishListButtonClicked(true);
+    dispatch(wishListButtonClickedAction(true));
     const tokenData = localStorage.getItem("jwt");
     if (tokenData == null) {
       // toast.info("Please Log in to add to wish list");
@@ -50,8 +30,8 @@ const ProductCart = ({ props }) => {
   };
 
   const handleRemoveFromWishList = () => {
-    setAddToWihsList(false);
-    setWishListButtonClicked(true);
+    dispatch(addToWishListAction(false));
+    dispatch(wishListButtonClickedAction(true));
     dispatch(removeFromWishList(props.id));
   };
 
@@ -83,31 +63,31 @@ const ProductCart = ({ props }) => {
     dispatch(checkCartUpdatedStatus(true));
   };
 
-  useEffect(() => {
-    const tokenData = localStorage.getItem("jwt");
-    let userObj;
-    if (addToWishList == false) {
-      //means need to remove from wish list
-      console.log(addToWishList);
-      removedItemFromWishList;
-      userObj = {
-        productId: removedItemFromWishList,
-        token: tokenData,
-        wishlistAdd: false,
-      };
-    } else {
-      userObj = {
-        productId: wishListItemsStore,
-        token: tokenData,
-        wishlistAdd: true,
-      };
-    }
+  // useEffect(() => {
+  //   const tokenData = localStorage.getItem("jwt");
+  //   let userObj;
+  //   if (addToWishList == false) {
+  //     //means need to remove from wish list
+  //     console.log(addToWishList);
+  //     removedItemFromWishList;
+  //     userObj = {
+  //       productId: removedItemFromWishList,
+  //       token: tokenData,
+  //       wishlistAdd: false,
+  //     };
+  //   } else {
+  //     userObj = {
+  //       productId: wishListItemsStore,
+  //       token: tokenData,
+  //       wishlistAdd: true,
+  //     };
+  //   }
 
-    updateCartItemsInDB(userObj, 3000);
-    // dispatch(resetRemoveFromWishListArray());
-    setAddToWihsList(true);
-    setWishListButtonClicked(false);
-  }, [wishListButtonClicked == true]);
+  //   updateCartItemsInDB(userObj, 3000);
+  //   // dispatch(resetRemoveFromWishListArray());
+  //   setAddToWihsList(true);
+  //   setWishListButtonClicked(false);
+  // }, [wishListButtonClicked == true]);
 
   // when there is change in the wishlist array in the redux update it
 
