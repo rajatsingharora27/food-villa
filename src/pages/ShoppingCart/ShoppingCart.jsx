@@ -54,7 +54,7 @@ const ShoppingCart = () => {
           </div>
         </div>
       ) : (
-        <ErrorPage />
+        <ErrorPage prop={{ message: "Cart is Empty", info: "Please go back to home page to add items in cart 😁" }} />
       )}
       <Footer1 />
     </>
