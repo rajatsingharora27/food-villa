@@ -1,8 +1,19 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { RiLoginCircleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { purgeStoreFun } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
 const HomePageContainer = () => {
   const navigate = useNavigate();
+  const totalCartItems = useSelector((store) => store.cartList.cart);
+  // navigate(0);s
+  console.log("BAck to hame");
+
+  const handlePurge = () => {
+    purgeStoreFun();
+  };
 
   return (
     <div className='bg-gradient-to-r from-[#8cf1b5] to-[#8cf1b5] w-full h-1/2 rounded-b-[5rem] shadow-2xl shadow-slate-300'>
@@ -37,7 +48,8 @@ const HomePageContainer = () => {
                   navigate("/shopping-cart");
                 }}
               />
-              <div className='absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full'>1</div>
+              {/* <button onClick={handlePurge}>Purge</button> */}
+              <div className='absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full'>{Object.keys(totalCartItems).length}</div>
             </div>
           </div>
         </div>
