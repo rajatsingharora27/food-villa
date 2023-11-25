@@ -24,7 +24,7 @@ const Body = () => {
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },
     { path: "/user-detail", element: <UserDetailForm /> },
-    { path: "*", element: <ErrorPage /> },
+    { path: "*", element: <ErrorPage prop={{ message: "Page You are Looking for Do not Exist ☹️", info: "Please go back to home page" }} /> },
   ]);
 
   // let persistor = persistStore(store);
