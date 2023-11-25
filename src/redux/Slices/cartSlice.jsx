@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { enableMapSet } from "immer";
+import { list } from "postcss";
 
 // Enable the MapSet plugin from Immer
 enableMapSet();
@@ -55,18 +56,6 @@ const cartSlice = createSlice({
     emptyCart: (state) => {
       state.cart = {};
     },
-
-    // totalCartPrice: (state, action) => {
-    //   state.totalPrice = action.payload;
-    //   // let initial = 0;
-    //   // for (const key in state.cart) {
-    //   //   // console.log(state.cart[key].price);
-    //   //   initial += state.cart[key].quantity * state.cart[key].price;
-    //   //   // console.log(state.totalPrice);
-    //   // }
-    //   // state.totalPrice = initial;
-    //   // console.log(initial);
-    // },
   },
 });
 

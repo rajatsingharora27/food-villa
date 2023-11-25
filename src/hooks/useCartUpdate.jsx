@@ -37,6 +37,11 @@ export const useCartUpdate = () => {
       };
       putCartItemsToDb(cartItemForApi, 200);
     } else {
+      for (let key in cartItems) {
+        if (cartItems[key].quantity == 0) {
+          dispatch(removeProductFromStore(key));
+        }
+      }
     }
     for (const key in cartItems) {
       list.push(cartItems[key]);
