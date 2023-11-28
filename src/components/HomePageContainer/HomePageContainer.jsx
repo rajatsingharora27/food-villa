@@ -3,13 +3,19 @@ import { RiLoginCircleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { purgeStoreFun } from "../../redux/store";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const HomePageContainer = () => {
   const navigate = useNavigate();
   const totalCartItems = useSelector((store) => store.cartList.cart);
-  // navigate(0);s
-  console.log("BAck to hame");
+  const [showuserData, setShowUserData] = useState(false);
+
+  useEffect(() => {
+    const tokenData = localStorage.getItem("jwt");
+    if (tokenData != null) {
+      setShowUserData(true);
+    }
+  });
 
   const handlePurge = () => {
     purgeStoreFun();
@@ -34,12 +40,26 @@ const HomePageContainer = () => {
 
           <div className=' flex items-center justify-between'>
             <div className='relative  text-white p-2 rounded text-lg font-bold overflow-visible cursor-pointer'>
-              <RiLoginCircleFill
-                className='text-3xl'
-                onClick={() => {
-                  navigate("/login");
-                }}
-              />
+              {showuserData ? (
+                <details className='dropdown'>
+                  <summary className='m-1 btn'>open or close</summary>
+                  <ul className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52'>
+                    <li>
+                      <span>Wish List</span>
+                    </li>
+                    <li>
+                      <span>Logout</span>
+                    </li>
+                  </ul>
+                </details>
+              ) : (
+                <RiLoginCircleFill
+                  className='text-3xl'
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                />
+              )}
             </div>
             <div className='relative  text-white p-2 rounded text-lg font-bold overflow-visible cursor-pointer'>
               <FaShoppingCart

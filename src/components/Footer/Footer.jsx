@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkCartUpdatedStatus, removeProductFromStore } from "../../redux/Slices/cartSlice";
 import axios from "axios";
 import { useCartUpdate } from "../../hooks/useCartUpdate";
-import { addToWishListAction, checkLoggedInUser, wishListButtonClickedAction } from "../../redux/Slices/wishListSlice";
+import { addToWishListAction, checkLoggedInUser, resetRemoveFromWishListArray, wishListButtonClickedAction } from "../../redux/Slices/wishListSlice";
 
 const Footer1 = () => {
   const dispatch = useDispatch();
@@ -28,9 +28,12 @@ const Footer1 = () => {
       console.log(ex);
     }
   };
-  // useEffect(() => {
-  //   dispatch(checkLoggedInUser());
-  // }, []);
+  useEffect(() => {
+    const tokenData = localStorage.getItem("jwt");
+    if (tokenData == null) {
+      dispatch(checkLoggedInUser());
+    }
+  }, []);
 
   useEffect(() => {
     const tokenData = localStorage.getItem("jwt");
