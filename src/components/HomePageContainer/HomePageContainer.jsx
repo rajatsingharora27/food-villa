@@ -42,7 +42,7 @@ const HomePageContainer = () => {
             <div className='relative  text-white p-2 rounded text-lg font-bold overflow-visible cursor-pointer'>
               {showuserData ? (
                 <details className='dropdown'>
-                  <summary className='m-1 btn'>open or close</summary>
+                  <summary className='m-1 btn'>User Name</summary>
                   <ul className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52'>
                     <li>
                       <span>Wish List</span>
@@ -79,7 +79,7 @@ const HomePageContainer = () => {
         <div className='flex flex-col gap-y-20'>
           <div className='w-full font-sans  text-[var(--text-color-main)] font-bold break-words text-5xl'>Disover Our Delecacy</div>
           <div className='w-full text-[var(--text-color-main)]  text-2xl font-sans font-medium leading-7 break-words'>
-            Explore our curated collection of stylish clothing and accessories tailored to your unique taste.
+            Explore our curated collection best Cakes in Delhi
           </div>
           <button className='rounded bg-[#224F34] shadow-lg p-5 w-1/3 text-white font-medium font-sans uppercase break-words text-lg hover:bg-green-600'>Shop Now</button>
         </div>
